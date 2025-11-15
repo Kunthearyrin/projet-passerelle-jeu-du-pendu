@@ -1,0 +1,336 @@
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+        }
+
+body {
+     font-family: Arial, sans-serif;
+     background: linear-gradient(#68486F, #846EA3 0%, #C0ADD1, #E4C8E5 100%);
+     min-height: 100vh;
+     padding: 20px;
+        }
+
+.container {
+     max-width: 900px;
+     margin: 0 auto;
+        }
+
+h1 {
+     text-align: center;
+     color: white;
+     font-size: 3em;
+     margin-bottom: 30px;
+     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+.game-box {
+     background: white;
+     border-radius: 20px;
+     padding: 40px;
+     box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+     margin-bottom: 20px;
+        }
+
+/* === ZONE DU PENDU === */
+.pendu-area {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+        }
+
+/* GRILLE CSS - 30 colonnes × 30 lignes */
+.pendu-grid {
+      display: grid;
+      grid-template-columns: repeat(30, 10px);
+      grid-template-rows: repeat(30, 10px);
+      gap: 0;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 5px;
+        }
+
+/* éléments de la pendaison (visible) */
+.base {
+       grid-column: 3 / 28;
+       grid-row: 28;
+       background: #000;
+        }
+
+.poteau {
+        grid-column: 6;
+        grid-row: 3 / 28;
+        background: #000;
+        }
+
+.poutre {
+        grid-column: 6 / 18;
+        grid-row: 3;
+        background: #000;
+        }
+
+.corde {
+        grid-column: 18;
+        grid-row: 3 / 8;
+        background: #000;
+        }
+
+/* Corps du pendu (cachée puis qui apparaît au fil des erreurs */
+.tete {
+        grid-column: 16 / 21;
+        grid-row: 8 / 13;
+        border: 2px solid #000;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s;
+        }
+
+.corps {
+        grid-column: 18;
+        grid-row: 13 / 21;
+        background: #000;
+        opacity: 0;
+        transition: opacity 0.3s;
+        }
+
+.bras-gauche {
+        grid-column: 16 / 19;
+        grid-row: 14 / 17;
+        background: #000;
+        transform: rotate(-120deg);
+        width: 10px;
+        height: 45px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        }
+
+.bras-droit {
+        grid-column: 20 / 24;
+        grid-row: 14 / 17;
+        background: #000;
+        transform: rotate(120deg);
+        width: 10px;
+        height: 45px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        }
+
+.jambe-gauche {
+        grid-column: 16 / 19;
+        grid-row: 21 / 25;
+        background: #000;
+        transform: rotate(-150deg);
+        width: 10px;
+        height: 50px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        }
+
+.jambe-droite {
+        grid-column: 20 / 24;
+        grid-row: 21 / 25;
+        background: #000;
+        transform: rotate(150deg);
+        width: 10px;
+        height: 50px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        }
+
+.visible {
+        opacity: 1 !important;
+        }
+
+/* === COMPTEUR === */
+.compteur {
+        text-align: center;
+        font-size: 1.3em;
+        font-weight: bold;
+        margin: 20px 0;
+        color: #333;
+        }
+
+.compteur .erreurs {
+        color: #dc3545;
+        font-size: 1.4em;
+        }
+
+/* === MOT À DEVINER === */
+.mot-container {
+        text-align: center;
+        margin: 30px 0;
+        min-height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        }
+
+.lettre-case {
+        width: 45px;
+        height: 55px;
+        border-bottom: 3px solid #846EA3;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8em;
+        font-weight: bold;
+        color: #333;
+        }
+
+/* === MESSAGES === */
+.message {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        font-size: 1.3em;
+        font-weight: bold;
+        display: none;
+        }
+
+.message.show {
+        display: block;
+        }
+
+.message.victoire {
+        background: #d4edda;
+        color: #155724;
+        border: 2px solid #28a745;
+        }
+
+.message.defaite {
+        background: #f8d7da;
+        color: #721c24;
+        border: 2px solid #dc3545;
+        }
+
+/* === PROPOSITION === */
+.proposition {
+        margin: 20px 0;
+        }
+
+.proposition label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+        }
+
+.proposition-inputs {
+        display: flex;
+        gap: 10px;
+        }
+
+.proposition input {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 1em;
+        }
+
+.proposition input:focus {
+        outline: none;
+        border-color: #846EA3;
+        }
+
+.proposition button {
+        padding: 12px 30px;
+        background: #846EA3;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        }
+
+.proposition button:hover {
+        background: #C0ADD1;
+        transform: translateY(-2px);
+        }
+
+/* === CLAVIER === */
+.clavier {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin: 30px 0;
+        }
+
+.lettre-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        }
+
+.lettre-btn.dispo {
+        background: #846EA3;
+        color: white;
+        }
+
+.lettre-btn.dispo:hover {
+        background: #C0ADD1;
+        transform: scale(1.1);
+        }
+
+.lettre-btn.correct {
+        background: #28a745;
+        color: white;
+        cursor: not-allowed;
+        }
+
+.lettre-btn.incorrect {
+        background: #dc3545;
+        color: white;
+        cursor: not-allowed;
+        }
+
+.lettre-btn.disabled {
+        background: #e9ecef;
+        color: #adb5bd;
+        cursor: not-allowed;
+        }
+
+/* === BOUTON NOUVELLE PARTIE === */
+.nouveau-btn {
+        display: block;
+        margin: 30px auto;
+        padding: 15px 40px;
+        background: #68486F;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        }
+
+.nouveau-btn:hover {
+        background: #E4C8E5;
+        transform: translateY(-2px);
+        }
+
+
+/* responsive design */
+@media (max-width: 768px) {
+        h1 { font-size: 2em; } /*sur écran d'ordinateur*/
+        .lettre-case { width: 35px; height: 45px; font-size: 1.4em; }
+        .lettre-btn { width: 40px; height: 40px; }
+        }
+
+        

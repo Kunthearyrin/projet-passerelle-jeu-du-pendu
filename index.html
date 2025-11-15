@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Pendu</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+      
+    <div class="container">
+        <h1> Jeu du Pendu 🎮</h1>
+
+        <div class="game-box">
+            <!-- ZONE DU PENDU -->
+            <div class="pendu-area">
+                <div class="pendu-grid">
+                    <!-- PENDAISON (toujours visible) -->
+                    <div class="base"></div>
+                    <div class="poteau"></div>
+                    <div class="poutre"></div>
+                    <div class="corde"></div>
+                    
+                    <!-- CORPS (caché au départ) -->
+                    <div class="tete" id="tete"></div>
+                    <div class="corps" id="corps"></div>
+                    <div class="bras-gauche" id="bras-gauche"></div>
+                    <div class="bras-droit" id="bras-droit"></div>
+                    <div class="jambe-gauche" id="jambe-gauche"></div>
+                    <div class="jambe-droite" id="jambe-droite"></div>
+                </div>
+            </div>
+
+            <!-- COMPTEUR -->
+            <div class="compteur">
+                Erreur : <span class="erreurs" id="compteur">0</span> /6
+            </div>
+
+            <!-- MOT À DEVINER -->
+            <div class="mot-container" id="mot-container"></div>
+
+            <!-- MESSAGES -->
+            <div class="message victoire" id="msg-victoire">
+                🎉 Bravo ! Vous avez gagné !<br>
+                Le mot était : <span id="mot-victoire"></span>
+            </div>
+
+            <div class="message defaite" id="msg-defaite">
+                😢 Perdu !<br>
+                Le mot était : <span id="mot-defaite"></span>
+            </div>
+
+            <!-- PROPOSITION -->
+            <div class="proposition" id="proposition-zone">
+                <label>Proposer le mot complet :</label>
+                <div class="proposition-inputs">
+                    <input type="text" id="input-mot" placeholder="Entrez votre proposition">
+                    <button id="btn-proposer">Proposer</button>
+                </div>
+            </div>
+
+            <!-- CLAVIER -->
+            <div class="clavier" id="clavier"></div>
+
+            <!-- NOUVELLE PARTIE -->
+            <button class="nouveau-btn" id="btn-nouveau">↻ Nouvelle Partie</button>
+        </div>
+    </div>
+    <script src="main.js"></script>  <!--à placer ici car sinon le JavaScript s'exécute avant que les éléments HTML soient créés donc le clavier n'apparaît pas (?)-->
+</body>
+</html>
